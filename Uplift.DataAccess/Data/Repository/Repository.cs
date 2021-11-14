@@ -45,7 +45,6 @@ namespace Uplift.DataAccess.Data.Repository
                 //    query = query.Include(property);
                 //}
             }
-
             return orderBy != null ? orderBy(query).ToList() : query.ToList();
         }
 
