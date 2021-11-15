@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Uplift.DataAccess.Data.Repository.IRepository;
+using Uplift.Models;
 
 namespace Uplift.Areas.Admin.Controllers
 {
@@ -16,6 +17,42 @@ namespace Uplift.Areas.Admin.Controllers
         {
             return View();
         }
+
+        public IActionResult Upsert(int? id)
+        {
+            Category category = new();
+            if (id == null)
+            {
+                return View(category);
+            }
+            category = _unitOfWork.Category.Get(id.GetValueOrDefault());
+            if (category == null)
+            {
+                return NotFound();
+            }
+            return View(category);
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public IActionResult Upsert(Category category)
+        {
+            if (ModelState.IsValid)
+            {
+                if(category.Id == 0)
+                {
+                    _unitOfWork.Category.Add(category);
+                }
+                else
+                {
+                    _unitOfWork.Category.Update(category);
+                }
+                _unitOfWork.Save();
+                return RedirectToAction("Index");
+            }
+            return View(category);
+        }
+
 
         #region API Calls
         /// <summary>

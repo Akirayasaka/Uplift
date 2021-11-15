@@ -26,9 +26,16 @@
             </thead>
             <tbody>
                 <tr v-for="item in objectData.responseData.list">
-                    <td></td>
-                    <td></td>
-                    <td></td>
+                    <td>{{item.name}}</td>
+                    <td>{{item.displayOrder}}</td>
+                    <td>
+                        <a href="'/Admin/category/Upsert/'+item.id'" class="btn btn-success text-white" style="cursor:pointer; width: 100px;">
+                            <i class="far fa-edit"></i> Edit
+                        </a>
+                        <a @@click.prevent=Delete(item.id) class="btn btn-danger text-white mx-1" style="cursor:pointer;">
+                            <i class="far fa-trash-alt"></i> Delete
+                        </a>
+                    </td>
                 </tr>
             </tbody>
         </table>
@@ -54,10 +61,17 @@
             });
 
             const fetchData = () => {
-                $('#dataTable').DataTable().destroy();
                 axios.get("/admin/category/GetAll").then((s)=>{
                     console.log(s);
+                    objectData.responseData.list = s.data.data;
+                    $('#dataTable').DataTable().destroy();
                 }).catch((err)=>{console.log(err)}).finally(()=>{ DtInit();});
+            }
+
+            const Delete = (str) => {
+                const url = `/Admin/category/Delete/${str}`
+                console.log(url);
+                //API
             }
 
             onMounted(() => {
@@ -65,7 +79,8 @@
             });
 
             return {
-                objectData
+                objectData,
+                Delete
             }
         }
     }).mount('#admin_Index');
