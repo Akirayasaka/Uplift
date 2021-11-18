@@ -63,7 +63,6 @@ namespace Uplift.Areas.Admin.Controllers
             return Json(new { data = _unitOfWork.Frequency.GetAll() });
         }
 
-
         public IActionResult Delete(int id)
         {
             var objFromDb = _unitOfWork.Frequency.Get(id);
