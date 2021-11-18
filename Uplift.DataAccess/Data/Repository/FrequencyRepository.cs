@@ -20,13 +20,11 @@ namespace Uplift.DataAccess.Data.Repository
 
         public IEnumerable<SelectListItem> GetFrequencyForDropDown()
         {
-            //throw new NotImplementedException();
             return _db.Frequcncy.Select(x => new SelectListItem() { Text = x.Name, Value = x.Id.ToString() });
         }
 
         public void Update(Frequency frequency)
         {
-            //throw new NotImplementedException();
             var target = _db.Frequcncy.FirstOrDefault(x => x.Id == frequency.Id);
 
             try

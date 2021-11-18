@@ -4,7 +4,7 @@ using Uplift.Models;
 
 namespace Uplift.DataAccess.Data.Repository.IRepository
 {
-    public interface IFrequencyRepository
+    public interface IFrequencyRepository: IRepository<Frequency>
     {
         /// <summary>
         /// 取得DropDown List
