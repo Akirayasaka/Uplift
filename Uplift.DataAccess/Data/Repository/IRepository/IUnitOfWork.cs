@@ -1,8 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Uplift.DataAccess.Data.Repository.IRepository
 {
@@ -11,6 +7,8 @@ namespace Uplift.DataAccess.Data.Repository.IRepository
         ICategoryRepository Category { get; }
 
         IFrequencyRepository Frequency { get; }
+
+        IServiceRepository Service { get; }
         void Save();
     }
 }
