@@ -71,7 +71,6 @@ namespace Uplift.Areas.Admin.Controllers
             {
                 return Json(new { success = false, message = "Error while deleting." });
             }
-
             _unitOfWork.Frequency.Remove(objFromDb);
             _unitOfWork.Save();
             return Json(new { success = true, message = "Delete successful" });
