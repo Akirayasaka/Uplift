@@ -23,9 +23,14 @@ namespace Uplift.Areas.Admin.Controllers
             return View();
         }
 
+        /// <summary>
+        /// 新增/修改 頁面
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
         public IActionResult Upsert(int? id)
         {
-            ServiceVM servVM = new ServiceVM()
+            ServiceVM servVM = new()
             {
                 Service = new Models.Service(),
                 CategoryLIst = _unitOfWork.Category.GetCategoryListForDropDown(),
