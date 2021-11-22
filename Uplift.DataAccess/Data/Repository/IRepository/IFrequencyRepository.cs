@@ -10,7 +10,7 @@ namespace Uplift.DataAccess.Data.Repository.IRepository
         /// 取得DropDown List
         /// </summary>
         /// <returns></returns>
-        IEnumerable<SelectListItem> GetFrequencyForDropDown();
+        IEnumerable<SelectListItem> GetFrequencyListForDropDown();
 
         /// <summary>
         /// 更新資料

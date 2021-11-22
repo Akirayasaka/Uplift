@@ -18,7 +18,7 @@ namespace Uplift.DataAccess.Data.Repository
             _db = db;
         }
 
-        public IEnumerable<SelectListItem> GetFrequencyForDropDown()
+        public IEnumerable<SelectListItem> GetFrequencyListForDropDown()
         {
             return _db.Frequcncy.Select(x => new SelectListItem() { Text = x.Name, Value = x.Id.ToString() });
         }
