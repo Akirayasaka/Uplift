@@ -19,7 +19,7 @@
             <br />
         </div>
         <div class="col-9">
-            <div class="btn-group row">
+            <div class="form-group row">
                 <div class="col-4">
                     <label asp-for="Service.Name"></label>
                 </div>
@@ -28,7 +28,7 @@
                     <span asp-validation-for="Service.Name" class="text-danger"></span>
                 </div>
             </div>
-            <div class="btn-group row">
+            <div class="form-group row">
                 <div class="col-4">
                     <label asp-for="Service.Price"></label>
                 </div>
@@ -37,16 +37,16 @@
                     <span asp-validation-for="Service.Price" class="text-danger"></span>
                 </div>
             </div>
-            <div class="btn-group row">
+            <div class="form-group row">
                 <div class="col-4">
                     <label asp-for="Service.LongDesc"></label>
                 </div>
                 <div class="col-8">
-                    <input asp-for="Service.LongDesc" class="form-control" />
+                    <textarea asp-for="Service.LongDesc" class="form-control"></textarea>
                     <span asp-validation-for="Service.LongDesc" class="text-danger"></span>
                 </div>
             </div>
-            <div class="btn-group row">
+            <div class="form-group row">
                 <div class="col-4">
                     <label asp-for="Service.ImageUrl"></label>
                 </div>
@@ -54,7 +54,7 @@
                     <input type="file" name="files" id="uploadBox" multiple class="form-control" />
                 </div>
             </div>
-            <div class="btn-group row">
+            <div class="form-group row">
                 <div class="col-4">
                     <label asp-for="Service.FrequencyId"></label>
                 </div>
@@ -63,7 +63,7 @@
                     "- Please select a Frequency", new { @class="form-control"})
                 </div>
             </div>
-            <div class="btn-group row">
+            <div class="form-group row">
                 <div class="col-4">
                     <label asp-for="Service.CategoryId"></label>
                 </div>
@@ -105,11 +105,17 @@
 </form>
 
 @section Scripts{
+    <script src="~/lib/tinymce/tinymce.min.js" referrerpolicy="origin"></script>
     <script>
         $(()=>{
             if($("#txtPrice").val() == "0"){
                 $("#txtPrice").val() == "";
             }
+        });
+        tinymce.init({
+            selector: 'textarea',
+            plugins: 'lists',
+            menubar: 'file edit format'
         });
 
         function validateInput(){
