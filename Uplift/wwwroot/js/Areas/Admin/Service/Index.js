@@ -15,7 +15,7 @@ createApp({
 
         const fetchData = () => {
             axios.get("/admin/service/GetAll").then((s) => {
-                console.log(s);
+                console.log(s.data);
                 objectData.responseData.list = s.data.data;
                 $('#dataTable').DataTable().destroy();
             }).catch((err) => { console.log(err) }).finally(() => { DtInit(); });

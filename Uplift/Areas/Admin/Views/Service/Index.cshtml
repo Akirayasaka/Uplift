@@ -27,18 +27,20 @@
                 </tr>
             </thead>
             <tbody>
-                @*<tr v-for="item in objectData.responseData.list">
+                <tr v-for="item in objectData.responseData.list">
                     <td class="align-middle">{{item.name}}</td>
-                    <td class="align-middle">{{item.displayOrder}}</td>
+                    <td class="align-middle">{{item.category.name}}</td>
+                    <td class="align-middle">{{item.price}}</td>
+                    <td class="align-middle">{{item.frequency.frequencyCount}}</td>
                     <td>
-                        <a :href="'/Admin/category/Upsert/'+item.id" class="btn btn-success text-white" style="cursor:pointer; width: 100px;">
+                        <a :href="'/Admin/service/Upsert/'+item.id" class="btn btn-success text-white" style="cursor:pointer; width: 100px;">
                             <i class="far fa-edit"></i> Edit
                         </a>
                         <a class="btn btn-danger text-white mx-1" style="cursor:pointer;" @@click.prevent="Delete(item.id)">
                             <i class="far fa-trash-alt"></i> Delete
                         </a>
                     </td>
-                </tr>*@
+                </tr>
             </tbody>
         </table>
     </div>

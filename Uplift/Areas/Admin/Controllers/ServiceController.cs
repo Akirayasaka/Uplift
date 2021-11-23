@@ -102,6 +102,9 @@ namespace Uplift.Areas.Admin.Controllers
             }
             else
             {
+                //避免拋回空List導致錯誤
+                ServVM.CategoryLIst = _unitOfWork.Category.GetCategoryListForDropDown();
+                ServVM.FrequencyList = _unitOfWork.Frequency.GetFrequencyListForDropDown();
                 return View(ServVM);
             }
         }
