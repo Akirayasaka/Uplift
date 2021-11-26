@@ -43,13 +43,14 @@ namespace Uplift
 
             services.AddScoped<IUnitOfWork, UnitOfWork>();
 
-            // Session
+            #region 使用Session
             services.AddSession(options =>
             {
                 options.IdleTimeout = TimeSpan.FromMinutes(30);
                 options.Cookie.HttpOnly = true;
                 options.Cookie.IsEssential = true;
             });
+            #endregion
 
             services.AddControllersWithViews().AddNewtonsoftJson().AddRazorRuntimeCompilation();
             services.AddRazorPages();
@@ -81,7 +82,9 @@ namespace Uplift
             app.UseHttpsRedirection();
             app.UseStaticFiles();
 
+            #region 使用Session
             app.UseSession();
+            #endregion
 
             app.UseCookiePolicy();
             app.UseRouting();

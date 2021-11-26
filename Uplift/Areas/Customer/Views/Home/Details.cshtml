@@ -1,4 +1,8 @@
 ﻿@model Uplift.Models.Service
+@using Microsoft.AspNetCore.Http
+@using Uplift.Utility
+@inject IHttpContextAccessor HttpContextAccessor
+@using Uplift.Extensions
 @{
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
@@ -37,7 +41,27 @@
                     <a asp-action="Index" class="btn btn-success form-control btn-lg" style="height: 50px;">Back to List</a>
                 </div>
                 <div class="col-12 col-md-6 pb-1">
-                    <a asp-action="AddToCart" asp-route-serviceId="@Model.Id" class="btn btn-square btn-primary form-control btn-lg" style="height: 50px;">Add to Cart</a>
+                    @{
+                        var AddToCartEnabled = true;
+                        // 確認Session內容,Cart是否有值
+                        if(HttpContextAccessor.HttpContext.Session.GetObject<List<int>>(SD.SessionCart) != null)
+                        {
+                            var sessionList = HttpContextAccessor.HttpContext.Session.GetObject<List<int>>(SD.SessionCart);
+                            // Cart 清單內若有找到 Detail Id
+                            if (sessionList.Contains(Model.Id))
+                            {
+                                // 加入購物車按鈕改為false
+                                AddToCartEnabled = false;
+                            }
+                        }
+                    }
+
+                    @if (AddToCartEnabled)
+                    {
+                        <a asp-action="AddToCart" asp-route-serviceId="@Model.Id" class="btn btn-square btn-primary form-control btn-lg" style="height: 50px;">Add to Cart</a>
+                    }else{
+                        <button class="btn alert-primary btn-square form-control btn-lg" style="height: 50px;" disabled>Item in Cart</button>
+                    }
                 </div>
             </div>
         </div>
