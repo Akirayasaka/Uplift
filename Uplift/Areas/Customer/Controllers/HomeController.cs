@@ -27,6 +27,11 @@ namespace Uplift.Areas.Customer.Controllers
             _unitOfWork = unitOfWork;
         }
 
+
+        /// <summary>
+        /// 客戶端首頁
+        /// </summary>
+        /// <returns></returns>
         public IActionResult Index()
         {
             HomeVM = new HomeViewModel()
@@ -38,23 +43,40 @@ namespace Uplift.Areas.Customer.Controllers
             return View(HomeVM);
         }
 
+        /// <summary>
+        /// 詳細資料(客戶端)
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
         public IActionResult Details(int id)
         {
             var serviceFromDb = _unitOfWork.Service.GetFirstOrDefault(includeProperties:"Category,Frequency", filter: c => c.Id == id);
             return View(serviceFromDb);
         }
 
+        /// <summary>
+        /// 商品加入購物車(存放於session)
+        /// </summary>
+        /// <param name="serviceId"></param>
+        /// <returns></returns>
         public IActionResult AddToCart(int serviceId)
         {
+            // 陣列紀錄serviceId
             List<int> sessionList = new();
+
+            // 從session沒有取到"Cart"
             if (string.IsNullOrEmpty(HttpContext.Session.GetString(SD.SessionCart)))
             {
+                // 新增到session
                 sessionList.Add(serviceId);
                 HttpContext.Session.SetObject(SD.SessionCart, sessionList);
             }
             else
             {
+                // 有取得"Cart"則取出做檢查
                 sessionList = HttpContext.Session.GetObject<List<int>>(SD.SessionCart);
+
+                // 清單內沒有包含這筆id, 就新增進session
                 if (!sessionList.Contains(serviceId))
                 {
                     sessionList.Add(serviceId);
