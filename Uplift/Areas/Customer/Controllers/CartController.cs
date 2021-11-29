@@ -2,7 +2,6 @@
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
-using Uplift.DataAccess.Data.Repository;
 using Uplift.DataAccess.Data.Repository.IRepository;
 using Uplift.Extensions;
 using Uplift.Models;
@@ -24,17 +23,18 @@ namespace Uplift.Areas.Customer.Controllers
             _unitOfWork = unitOfWork;
             CartVM = new CartViewModel()
             {
-                OrderHeader = new Models.OrderHeader(),
+                OrderHeader = new OrderHeader(),
                 ServiceList = new List<Service>()
             };
         }
 
+        #region 購物車頁面
         public IActionResult Index()
         {
             //導向到購物車頁面前, 先判斷session
             if (HttpContext.Session.GetObject<List<int>>(SD.SessionCart) != null)
             {
-                List<int> sessionList = new List<int>();
+                List<int> sessionList = new();
                 sessionList = HttpContext.Session.GetObject<List<int>>(SD.SessionCart);
                 foreach (var serviceId in sessionList)
                 {
@@ -43,7 +43,9 @@ namespace Uplift.Areas.Customer.Controllers
             }
             return View(CartVM);
         }
+        #endregion
 
+        #region Summary Page
         public IActionResult Summary()
         {
             // 先判斷session
@@ -58,7 +60,9 @@ namespace Uplift.Areas.Customer.Controllers
             }
             return View(CartVM);
         }
+        #endregion
 
+        #region 儲存訂單資訊
         [HttpPost]
         [ValidateAntiForgeryToken]
         [ActionName("Summary")]
@@ -67,7 +71,7 @@ namespace Uplift.Areas.Customer.Controllers
             // 判斷session
             if (HttpContext.Session.GetObject<List<int>>(SD.SessionCart) != null)
             {
-                List<int> sessionList = new List<int>();
+                List<int> sessionList = new();
                 sessionList = HttpContext.Session.GetObject<List<int>>(SD.SessionCart);
                 foreach (var serviceId in sessionList)
                 {
@@ -109,15 +113,23 @@ namespace Uplift.Areas.Customer.Controllers
                 return RedirectToAction("OrderConfirmation", "Cart", new { id = CartVM.OrderHeader.Id });
             }
         }
+        #endregion
 
+        public IActionResult OrderConfirmation(int id)
+        {
+            return View(id);
+        }
+
+        #region 移除單筆紀錄(From Session)
         public IActionResult Remove(int serviceId)
         {
-            List<int> sessionList = new List<int>();
+            List<int> sessionList = new();
             sessionList = HttpContext.Session.GetObject<List<int>>(SD.SessionCart);
             sessionList.Remove(serviceId);
             HttpContext.Session.SetObject(SD.SessionCart, sessionList);
 
             return RedirectToAction("Index");
         }
+        #endregion
     }
 }
