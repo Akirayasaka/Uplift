@@ -17,10 +17,13 @@ namespace Uplift.DataAccess.Data
         {
         }
 
+        #region 資料表
         public DbSet<Category> Category { get; set; }
         public DbSet<Frequency> Frequcncy { get; set; }
         public DbSet<Service> Service { get; set; }
         public DbSet<OrderHeader> OrderHeaders { get; set; }
         public DbSet<OrderDetails> OrderDetails { get; set; }
+        public DbSet<ApplicationUser> ApplicationUser { get; set; }
+        #endregion
     }
 }
