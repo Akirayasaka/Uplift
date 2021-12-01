@@ -41,7 +41,9 @@ namespace Uplift
 
             services.AddSingleton<IEmailSender, EmailSender>();
 
+            #region µù¥UDI
             services.AddScoped<IUnitOfWork, UnitOfWork>();
+            #endregion
 
             #region ¨Ï¥ÎSession
             services.AddSession(options =>
