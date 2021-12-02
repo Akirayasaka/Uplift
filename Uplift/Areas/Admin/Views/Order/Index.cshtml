@@ -1,0 +1,65 @@
+﻿@using Uplift.Utility
+@{
+    ViewData["Title"] = "Order";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<div>
+    <h1>Index</h1>
+
+    <div class="border backgroundWhite p-3">
+        <div class="d-flex justify-content-between mb-3">
+            <div class="p-2">
+                <h2 class="text-primary">Order's List</h2>
+            </div>
+            <div class="p-2">
+                <ul class="list-group list-group-horizontal-sm">
+                    <a style="text-decoration: none;" asp-controller="Order" asp-action="Index" asp-route-status="pending">
+                    <li class="list-group-item">Pending</li>
+                    </a>
+                    <a style="text-decoration: none;" asp-controller="Order" asp-action="approved" asp-route-status="pending">
+                    <li class="list-group-item">Approved</li>
+                    </a>
+                    <a style="text-decoration: none;" asp-controller="Order" asp-action="all" asp-route-status="pending">
+                    <li class="list-group-item">All</li>
+                    </a>
+                </ul>
+            </div>
+        </div>
+        <br /><br />
+
+        <table id="dataTable" class="table table-striped table-bordered w-100">
+            <thead>
+                <tr>
+                    <th>Name</th>
+                    <th>Phone</th>
+                    <th>Email</th>
+                    <th>Count</th>
+                    <th>Status</th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr v-for="item in objectData.responseData.list">
+                    <td class="align-middle">{{item.name}}</td>
+                    <td class="align-middle">{{item.phone}}</td>
+                    <td class="align-middle">{{item.email}}</td>
+                    <td class="align-middle">{{item.serviceCount}}</td>
+                    <td class="align-middle">{{item.status}}</td>
+                    <td class="align-middle">
+                        <div class="text-center">
+                            <a :href="'/Admin/order/Details/'+item.id" class="btn btn-success text-white" style="cursor:pointer; width: 100px;">
+                                <i class="far fa-edit"></i> Details
+                            </a>
+                        </div>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+
+    </div>
+</div>
+
+@section Scripts{
+<script src="~/js/Areas/Admin/Order/index.js" defer></script>
+}
+

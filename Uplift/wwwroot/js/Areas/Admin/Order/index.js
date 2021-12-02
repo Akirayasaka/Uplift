@@ -43,7 +43,7 @@ createApp({
                         } else {
 
                         }
-                        fetchData();
+                        //fetchData();
                     }).catch((err) => { console.log(err) });
                 }
             });
