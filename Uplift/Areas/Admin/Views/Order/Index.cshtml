@@ -1,7 +1,7 @@
 ﻿@using Uplift.Utility
 @{
-    ViewData["Title"] = "Order";
     Layout = "~/Views/Shared/_Layout.cshtml";
+    var status = Context.Request.Query["status"];
 }
 <div>
     <h1>Index</h1>
@@ -14,13 +14,13 @@
             <div class="p-2">
                 <ul class="list-group list-group-horizontal-sm">
                     <a style="text-decoration: none;" asp-controller="Order" asp-action="Index" asp-route-status="pending">
-                    <li class="list-group-item">Pending</li>
+                    <li class="list-group-item @(status == "pending" ? "active-white" : "text-primary")">Pending</li>
                     </a>
                     <a style="text-decoration: none;" asp-controller="Order" asp-action="approved" asp-route-status="pending">
-                    <li class="list-group-item">Approved</li>
+                    <li class="list-group-item @(status == "approved" ? "active-white" : "text-primary")"">Approved</li>
                     </a>
                     <a style="text-decoration: none;" asp-controller="Order" asp-action="all" asp-route-status="pending">
-                    <li class="list-group-item">All</li>
+                    <li class="list-group-item @(status == "all" ? "active-white" : "text-primary")"">All</li>
                     </a>
                 </ul>
             </div>
