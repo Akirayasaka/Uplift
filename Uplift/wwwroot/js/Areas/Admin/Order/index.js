@@ -54,10 +54,10 @@ createApp({
             if (url.includes("approved")) {
                 fetchData("GetAllApprovedOrders");
             } else {
-                if (url.includes("all")) {
-                    fetchData("GetAllOrders");
-                } else {
+                if (url.includes("pending")) {
                     fetchData("GetAllPendingOrders");
+                } else {
+                    fetchData("GetAllOrders");
                 }
             }
         });
